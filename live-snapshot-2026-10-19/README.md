@@ -9,3 +9,7 @@ deadlinesfcali.netlify.app is not built from this repo. Its current page came fr
   - footer mailto nicholle@deadlinesf.com -> plain text info@deadlinesf.net
 
 The checkout key stays `ca_scan_795`. The live Stripe price still charges $795 until a $749 price exists.
+
+2026-10-24 update (words and clock only, no visual changes):
+- SB 942 card: "Deadline · August 2, 2026" -> in effect since Aug 2, 2026; SB 1000 is no longer "moving in the Assembly" (signed Sept 30, 2026, in effect immediately, 1M-user carve-out deleted).
+- The countdown hit zero on Aug 2, 2026. After that date it now shows time since SB 942 took effect instead of 00:00:00:00.
