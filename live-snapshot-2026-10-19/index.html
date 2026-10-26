@@ -178,8 +178,8 @@
 
     <div class="clock" id="clock">
       <div class="clock-head">
-        <span>SB 942 · CA AI Transparency Act · Operative</span>
-        <span class="target">TARGET · Aug 2, 2026 PT</span>
+        <span id="clock-label">SB 942 · CA AI Transparency Act · Operative</span>
+        <span class="target" id="clock-target">TARGET · Aug 2, 2026 PT</span>
       </div>
       <div class="cgrid">
         <div class="unit"><div class="num" id="d">--</div><div class="lab">Days</div></div>
@@ -223,9 +223,9 @@
         <div class="cite">Cal. Civ. Code § 3111 · operative Jan 1, 2026</div>
       </div>
       <div class="law">
-        <div class="tag">Deadline · August 2, 2026</div>
+        <div class="tag">In effect since Aug 2, 2026 · no size threshold since Sept 30, 2026</div>
         <h3>SB 942 — AI Transparency Act</h3>
-        <p>Provenance disclosures, an AI-content verification tool, and latent disclosure for generated content. SB 1000 (moving in the Assembly) would delete the current 1M-user carve-out — pulling in the small teams too.</p>
+        <p>Provenance disclosures, an AI-content verification tool, and latent disclosure for generated content. SB 1000, signed Sept 30, 2026 and in effect immediately, deleted the old 1M-user carve-out — so small teams are covered too.</p>
         <div class="cite">Cal. Bus. &amp; Prof. Code § 22757 et seq. · verify subsections w/ counsel</div>
       </div>
     </div>
@@ -310,7 +310,12 @@
   // ---- countdown ----
   var target = new Date('2026-08-02T00:00:00-07:00').getTime();
   function tick(){
-    var diff = Math.max(0, target - Date.now());
+    var diff = target - Date.now();
+    if (diff < 0) {
+      diff = -diff;
+      document.getElementById('clock-label').textContent = 'SB 942 · CA AI Transparency Act · In effect';
+      document.getElementById('clock-target').textContent = 'TIME SINCE Aug 2, 2026 PT';
+    }
     var d = Math.floor(diff/86400000); diff -= d*86400000;
     var h = Math.floor(diff/3600000);  diff -= h*3600000;
     var m = Math.floor(diff/60000);    diff -= m*60000;
