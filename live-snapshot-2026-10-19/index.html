@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeadlineSF — California AI Compliance for the Small Team</title>
+<meta name="description" content="California AI compliance built for teams under $1M. AB 2013 has no size threshold — the same laws written for billion-dollar labs apply to you. Start with a free 3-line patch. Built to protect and educate.">
+<meta name="robots" content="index,follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Service","name":"DeadlineSF — California AI Compliance (Small Team)","serviceType":"AI regulatory compliance readiness","areaServed":{"@type":"State","name":"California"},"provider":{"@type":"Organization","name":"DeadlineSF","parentOrganization":"PrestigeSF"},"description":"California AI compliance readiness for teams under $1M revenue. Focus: AB 2013 (training-data transparency) and SB 942 (AI Transparency Act).","offers":{"@type":"Offer","price":"749.00","priceCurrency":"USD","description":"AB 2013 Gap Audit — starting point, credited toward full remediation"}}
+</script>
+<style>
+  :root{
+    color-scheme:dark;
+    --bg:#050508; --panel:rgba(14,14,18,.72); --line:#262633;
+    --ink:#f5f5f0; --mute:#8a8a94;
+    --red:#FF2B2B; --signal:#46e6a0; --amber:#ffb627; --glow:#ff5a7a;
+    --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+    --disp:"Archivo","Helvetica Neue",Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{background:var(--bg);scroll-behavior:smooth}
+  body{background:transparent;color:var(--ink);font-family:var(--disp);line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative}
+  /* full-page dark water */
+  #water{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+  .site{position:relative;z-index:1}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  .r{color:var(--red);transition:text-shadow .2s ease,filter .2s ease}
+  .r:hover{filter:brightness(1.3);text-shadow:0 0 6px var(--red),0 0 18px var(--red),0 0 42px rgba(255,43,43,.6);animation:flare 1.1s ease-in-out infinite}
+  @keyframes flare{50%{text-shadow:0 0 11px var(--red),0 0 32px var(--red),0 0 72px rgba(255,43,43,.9)}}
+  a{color:inherit}
+  section{padding:64px 0;border-bottom:1px solid rgba(38,38,51,.85)}
+  ::selection{background:rgba(255,43,43,.85);color:#fff}
+
+  /* red word-hover — cursor lights text into crimson */
+  .hw{
+    display:inline;
+    transition:color .14s ease, text-shadow .18s ease, background-color .14s ease;
+    border-radius:2px;
+  }
+  .hw:hover, .hw.is-hot{
+    color:var(--red) !important;
+    text-shadow:0 0 8px rgba(255,43,43,.55), 0 0 22px rgba(255,43,43,.35), 0 0 48px rgba(255,43,43,.18);
+  }
+  h1 .hw:hover, h1 .hw.is-hot, h2 .hw:hover, h2 .hw.is-hot{
+    text-shadow:0 0 10px rgba(255,43,43,.7), 0 0 28px rgba(255,43,43,.45), 0 0 60px rgba(255,43,43,.25);
+  }
+
+  /* status bar */
+  .statusbar{border-bottom:1px solid rgba(38,38,51,.9);font-family:var(--mono);font-size:12px;letter-spacing:.05em;color:var(--mute);display:flex;justify-content:space-between;align-items:center;padding:11px 24px;flex-wrap:wrap;gap:8px;background:rgba(5,5,8,.55);backdrop-filter:blur(10px)}
+  .statusbar .logo{font-weight:700;letter-spacing:.05em;font-size:14px;color:var(--ink)}
+  .statusbar .logo:hover{color:var(--red);text-shadow:0 0 8px rgba(255,43,43,.5)}
+  .statusbar .live{color:var(--signal)}
+
+  /* hero + jellyfish */
+  .hero{position:relative;overflow:hidden;border-bottom:1px solid rgba(38,38,51,.9);min-height:78vh;display:flex;align-items:center}
+  #jelly{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+  .hero .wrap{position:relative;z-index:1;padding-top:60px;padding-bottom:60px}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--signal);margin-bottom:18px}
+  h1{font-family:var(--disp);font-weight:900;font-size:clamp(34px,7vw,68px);line-height:1.02;letter-spacing:-.02em;max-width:16ch}
+  h1 .thin{font-weight:600;color:var(--mute)}
+  .lede{font-size:clamp(16px,2.2vw,20px);color:#d4d4dc;margin-top:22px;max-width:60ch}
+  .lede b{color:var(--ink)}
+  .sub{font-size:15px;color:var(--mute);margin-top:14px;max-width:58ch}
+  .sub b{color:#c8c8d0}
+  .ctarow{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+  .btn{display:inline-block;padding:14px 22px;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;border:1px solid var(--red);color:var(--ink);background:var(--red);font-weight:700;transition:transform .18s ease,box-shadow .18s ease,filter .18s ease}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.5),0 0 22px rgba(255,43,43,.5);filter:brightness(1.08)}
+  .btn.ghost{background:transparent;border-color:var(--line);color:var(--ink)}
+  .btn.ghost:hover{border-color:var(--signal);box-shadow:0 10px 22px rgba(0,0,0,.5),0 0 16px rgba(70,230,160,.3);filter:none}
+
+  /* clock */
+  .clock{position:relative;overflow:hidden;margin-top:40px;max-width:560px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(28,13,13,.92),rgba(13,13,18,.9) 62%);box-shadow:0 0 0 1px rgba(255,43,43,.3),0 24px 66px rgba(0,0,0,.62),0 0 70px rgba(255,43,43,.2);animation:clockGlow 3.4s ease-in-out infinite;backdrop-filter:blur(6px)}
+  .clock::before{content:"";position:absolute;top:0;left:-55%;width:55%;height:3px;background:linear-gradient(90deg,transparent,var(--red),#fff,var(--red),transparent);box-shadow:0 0 12px var(--red);animation:clockSweep 1.8s linear infinite;z-index:3;pointer-events:none}
+  .clock::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse at 50% 42%,rgba(255,43,43,.22),transparent 72%);animation:clockBeat 1s ease-out infinite}
+  @keyframes clockGlow{0%,100%{box-shadow:0 0 0 1px rgba(255,43,43,.25),0 24px 66px rgba(0,0,0,.62),0 0 60px rgba(255,43,43,.16)}50%{box-shadow:0 0 0 1px rgba(255,43,43,.6),0 24px 78px rgba(0,0,0,.68),0 0 110px rgba(255,43,43,.38)}}
+  @keyframes clockSweep{0%{left:-55%}100%{left:100%}}
+  @keyframes clockBeat{0%{opacity:1}22%{opacity:.8}100%{opacity:.08}}
+  .clock>*{position:relative;z-index:1}
+  .clock-head{border-bottom:1px solid var(--line);padding:11px 16px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--mute);text-transform:uppercase;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  .clock-head .target{color:var(--red)}
+  .cgrid{display:grid;grid-template-columns:repeat(4,1fr)}
+  .unit{padding:20px 8px;text-align:center;border-right:1px solid var(--line)}
+  .unit:last-child{border-right:none}
+  .num{font-family:var(--mono);font-weight:700;font-size:clamp(34px,7vw,58px);line-height:1;color:var(--ink);font-variant-numeric:tabular-nums;text-shadow:0 0 12px rgba(255,43,43,.45),0 0 30px rgba(255,43,43,.2)}
+  #s{color:var(--red);animation:secBeat 1s ease-in-out infinite}
+  @keyframes secBeat{0%,100%{transform:scale(1);text-shadow:0 0 10px var(--red),0 0 26px rgba(255,43,43,.5)}50%{transform:scale(1.08);text-shadow:0 0 18px var(--red),0 0 44px rgba(255,43,43,.95)}}
+  .lab{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-top:8px}
+
+  /* section titles */
+  .sec-eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--signal);margin-bottom:14px}
+  h2{font-family:var(--disp);font-weight:900;font-size:clamp(26px,4.6vw,40px);line-height:1.06;letter-spacing:-.01em;margin-bottom:8px}
+  .body{color:var(--mute);font-size:15px;max-width:64ch;margin-bottom:26px}
+
+  /* mission */
+  .mission{position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(28,8,10,.55),rgba(8,8,12,.35) 70%)}
+  .mission::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 20% 30%,rgba(255,43,43,.14),transparent 55%),radial-gradient(ellipse at 85% 70%,rgba(255,90,122,.08),transparent 50%)}
+  .mission .wrap{position:relative;z-index:1}
+  .mission-quote{
+    font-size:clamp(18px,2.6vw,24px);line-height:1.45;color:#ecece6;max-width:48ch;margin:18px 0 20px;font-weight:600;
+    border-left:3px solid var(--red);padding-left:18px;
+  }
+  .mission-body{color:var(--mute);font-size:15px;max-width:62ch;margin-bottom:14px}
+  .mission-body b{color:var(--ink)}
+  .mission-sign{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);margin-top:22px}
+
+  /* laws */
+  .laws{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .law{border:1px solid var(--line);background:var(--panel);padding:22px;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;backdrop-filter:blur(8px)}
+  .law:hover{transform:translateY(-4px);border-color:var(--red);box-shadow:0 16px 40px rgba(0,0,0,.55),0 0 26px rgba(255,43,43,.18)}
+  .law .tag{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--amber);margin-bottom:10px}
+  .law h3{font-size:19px;margin-bottom:8px}
+  .law p{font-size:14px;color:var(--mute)}
+  .law .cite{font-family:var(--mono);font-size:12px;color:#7a7a86;margin-top:10px}
+
+  /* ladder / pricing */
+  .ladder{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .step{border:1px solid var(--line);background:var(--panel);padding:22px 18px;display:flex;flex-direction:column;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;backdrop-filter:blur(8px)}
+  .step:hover{transform:translateY(-5px);border-color:var(--red);box-shadow:0 18px 42px rgba(0,0,0,.55),0 0 28px rgba(255,43,43,.2)}
+  .step.free{border-color:rgba(70,230,160,.4)}
+  .step .sn{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:10px}
+  .step h4{font-size:16px;margin-bottom:6px}
+  .step .price{font-family:var(--mono);font-weight:700;font-size:26px;color:var(--ink);margin-bottom:2px}
+  .step.free .price{color:var(--signal)}
+  .step .note{font-size:12px;color:var(--mute);margin-bottom:14px;min-height:32px}
+  .step ul{list-style:none;margin-bottom:16px;flex:1}
+  .step li{font-size:13px;color:#cdcdd4;padding-left:18px;position:relative;margin-bottom:6px}
+  .step li::before{content:"›";position:absolute;left:0;color:var(--red)}
+  .step .go{margin-top:auto;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;text-align:center;border:1px solid var(--red);color:var(--ink);background:var(--red);padding:11px;font-weight:700;transition:.18s}
+  .step.free .go{background:transparent;border-color:var(--signal);color:var(--signal)}
+  .step .go:hover{transform:translateY(-2px);box-shadow:0 0 20px rgba(255,43,43,.45)}
+  .anchor{font-family:var(--mono);font-size:13px;color:var(--amber);margin-top:20px;text-align:center}
+
+  /* start */
+  .start-in{max-width:560px}
+  input,textarea{width:100%;padding:13px 14px;background:linear-gradient(180deg,#20130f,#141419 58%);border:1px solid var(--line);border-top-color:#3d2a28;color:var(--ink);font-family:var(--disp);font-size:15px;margin-bottom:16px;box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 12px 26px rgba(0,0,0,.6),0 0 26px rgba(255,43,43,.11);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+  input:focus,textarea:focus{outline:none;border-color:var(--red);transform:translateY(-3px);box-shadow:inset 0 1px 0 rgba(255,255,255,.09),0 20px 40px rgba(0,0,0,.7),0 0 0 1px var(--red),0 0 30px rgba(255,43,43,.42)}
+
+  footer{padding:34px 0;color:var(--mute);font-family:var(--mono);font-size:12px;line-height:1.8}
+  footer .r{color:var(--red)}
+  footer a:hover{color:var(--red)}
+
+  @media (max-width:820px){.ladder{grid-template-columns:1fr 1fr}}
+  @media (max-width:560px){.laws,.ladder{grid-template-columns:1fr}}
+  @media (prefers-reduced-motion:reduce){
+    .clock,.clock::before,.clock::after,#s,.r:hover{animation:none}
+    .clock::after{opacity:.18}
+    .hw,.hw:hover,.hw.is-hot{transition:none}
+  }
+</style>
+</head>
+<body>
+<canvas id="water" aria-hidden="true"></canvas>
+<div class="site">
+
+<div class="statusbar">
+  <span class="logo">//<span class="r">DEADLINE</span>SF</span>
+  <span><span class="live">●</span> California · for teams under $1M</span>
+  <span>Free patch · No card required</span>
+</div>
+
+<!-- HERO with jellyfish -->
+<header class="hero">
+  <canvas id="jelly" aria-hidden="true"></canvas>
+  <div class="wrap ink">
+    <div class="eyebrow">California AI Compliance · The affordable shield</div>
+    <h1>The <span class="r">DEADLINE</span> was built for giants. <span class="thin">You still have to meet it.</span></h1>
+    <p class="lede"><b>AB 2013</b> is already in effect — and it has <b>no size threshold</b>. The same California AI laws written for billion-dollar labs apply to you, without the legal team they have.</p>
+    <p class="sub">DeadlineSF is the compliance shield for small California AI teams. We find one live violation and hand you the fix — <b>free</b> — then close the rest at a price a small shop can actually pay. Big players have a compliance department. You have us.</p>
+    <div class="ctarow">
+      <a class='btn' href='https://claimfreepatch.netlify.app/'>Get My Free 3-Line Patch</a>
+      <a href="#ladder" class="btn ghost">See the Pricing</a>
+      <a href="#mission" class="btn ghost">Why we exist</a>
+    </div>
+
+    <div class="clock" id="clock">
+      <div class="clock-head">
+        <span>SB 942 · CA AI Transparency Act · Operative</span>
+        <span class="target">TARGET · Aug 2, 2026 PT</span>
+      </div>
+      <div class="cgrid">
+        <div class="unit"><div class="num" id="d">--</div><div class="lab">Days</div></div>
+        <div class="unit"><div class="num" id="h">--</div><div class="lab">Hours</div></div>
+        <div class="unit"><div class="num" id="m">--</div><div class="lab">Minutes</div></div>
+        <div class="unit"><div class="num" id="s">--</div><div class="lab">Seconds</div></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- MISSION -->
+<section id="mission" class="mission">
+  <div class="wrap ink">
+    <div class="sec-eyebrow">Mission · How we earn the right to help</div>
+    <h2>Protect. Educate. Arm the people the giants ignore.</h2>
+    <p class="mission-quote">I build DeadlineSF to <b style="color:var(--red)">protect and educate my people — and all people</b> — so AI rules written for billion-dollar labs don’t erase the builders still climbing.</p>
+    <p class="mission-body"><b>I don’t ask for trust. I prove it</b> — by giving something small but valuable away first. That free 3-line patch isn’t a teaser. <b>It is the pitch.</b> One real gap. One real fix. No card. No strings. Help first, always.</p>
+    <p class="mission-body">The first teams crushed by California AI law are not the labs with legal departments. They are small shops, independent founders, students shipping products, community tools, and anyone who was never supposed to afford “compliance theater.”</p>
+    <p class="mission-body">This lifeline is plain English, free patches first, prices a real shop can pay. <b>Education before fear. Armor before jargon.</b> Only after you’ve felt the gift do we invite you deeper — Gap Audit, full fix, monitoring. Every paid package is still review-ready and attorney-reviewed. Honesty is part of the protection.</p>
+    <p class="mission-body">If you are building something that helps people and the deadline is breathing down your neck: this lane is for you. I am not a law firm. I am a founder who refuses to leave our people unarmed while the rules change under our feet.</p>
+    <div class="mission-sign">— Nicholle Simon · Founder, DeadlineSF / PrestigeSF</div>
+    <div class="ctarow" style="margin-top:22px">
+      <a class='btn' href='https://claimfreepatch.netlify.app/'>Take the free patch</a>
+      <a href="#ladder" class="btn ghost">Then see pricing</a>
+    </div>
+  </div>
+</section>
+
+<!-- CALIFORNIA LAWS -->
+<section id="laws">
+  <div class="wrap ink">
+    <div class="sec-eyebrow">What applies to you · California</div>
+    <h2>Two laws. Both hit small teams.</h2>
+    <p class="body">We keep it to what actually reaches a small California AI company — no eight-jurisdiction sprawl, no enterprise theater. Just the two that matter for you right now.</p>
+    <div class="laws">
+      <div class="law">
+        <div class="tag">In effect now · no size threshold</div>
+        <h3>AB 2013 — Training-Data Transparency</h3>
+        <p>Any developer that builds, fine-tunes, or substantially modifies a public generative-AI system available to Californians must publish specific training-data disclosures. There is no user-count minimum — it applies to you.</p>
+        <div class="cite">Cal. Civ. Code § 3111 · operative Jan 1, 2026</div>
+      </div>
+      <div class="law">
+        <div class="tag">Deadline · August 2, 2026</div>
+        <h3>SB 942 — AI Transparency Act</h3>
+        <p>Provenance disclosures, an AI-content verification tool, and latent disclosure for generated content. SB 1000 (moving in the Assembly) would delete the current 1M-user carve-out — pulling in the small teams too.</p>
+        <div class="cite">Cal. Bus. &amp; Prof. Code § 22757 et seq. · verify subsections w/ counsel</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE LADDER -->
+<section id="ladder">
+  <div class="wrap ink">
+    <div class="sec-eyebrow">Pricing · Built for the small guy</div>
+    <h2>Start free. Pay like a small business.</h2>
+    <p class="body">No $12,500 rush bundles here. This is the lifeline lane: fix one thing free, then move up only as far as you need.</p>
+    <div class="ladder">
+      <div class="step free">
+        <div class="sn">Step 01 · Free · The pitch</div>
+        <h4>The 3-Line Patch</h4>
+        <div class="price">Free</div>
+        <div class="note">We don’t ask for trust — we prove it. One gap, one fix. No card.</div>
+        <ul><li>Real readiness finding</li><li>Deterministic, zero-leakage patch</li><li>Yours to ship — no strings</li></ul>
+        <a class='go' href='https://claimfreepatch.netlify.app/'>Get the free patch</a>
+      </div>
+      <div class="step">
+        <div class="sn">Step 02 · Scan</div>
+        <h4>CA Exposure Scan</h4>
+        <div class="price">$749</div>
+        <div class="note">Plain-English map of CA gaps. Credited toward implementation.</div>
+        <ul><li>AB 2013 + SB 942 focus</li><li>Every missing disclosure called out</li><li>No multi-state theater</li></ul>
+        <a href="https://deadlinesf.net/checkout.html?pkg=ca_scan_795" class="go">Pay $749 · Checkout</a>
+      </div>
+      <div class="step">
+        <div class="sn">Step 03 · Fix</div>
+        <h4>CA Implementation</h4>
+        <div class="price">$2,500</div>
+        <div class="note">Close the gaps. Attorney-reviewed readiness package for small teams.</div>
+        <ul><li>Disclosure page + inventory</li><li>Remediation you can ship</li><li>Attorney-reviewed letter</li></ul>
+        <a href="https://deadlinesf.net/checkout.html?pkg=ca_impl_2500" class="go">Pay $2,500 · Checkout</a>
+      </div>
+      <div class="step">
+        <div class="sn">Step 04 · Stay covered</div>
+        <h4>CA Watch</h4>
+        <div class="price">$350<span style="font-size:13px;color:var(--mute)">/mo</span></div>
+        <div class="note">Low monitoring for CA law changes. Cancel anytime.</div>
+        <ul><li>We track CA AI law shifts</li><li>Reopen tasks when it moves</li><li>Keep evidence current</li></ul>
+        <a href="https://deadlinesf.net/checkout.html?pkg=ca_monitor_350" class="go">Start $350/mo</a>
+      </div>
+    </div>
+    <div class="anchor">For scale: SB 942 exposure runs $5,000 <b>per day</b>. Your whole first fix is less than one day of it.</div>
+  </div>
+</section>
+
+<!-- START -->
+<section id="start">
+  <div class="wrap ink">
+    <div class="sec-eyebrow">Start · No pressure</div>
+    <h2>Tell me about your AI, I'll tell you what's exposed.</h2>
+    <p class="body">Real person (Nicholle), real answer. Start with the free patch, or just ask.</p>
+    <form class="start-in" name="lifeline-inquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="lifeline-inquiry">
+      <p style="display:none"><label>Don’t fill this out: <input name="bot-field"></label></p>
+      <input name="name" placeholder="Your name" required>
+      <input name="email" type="email" placeholder="Email" required>
+      <input name="company" placeholder="Company / product">
+      <textarea name="ai" rows="3" placeholder="What does your AI do? (one line is fine)"></textarea>
+      <button class="btn" type="submit">Send it</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>//<span class="r">DEADLINE</span>SF · The lifeline · California only · A PrestigeSF property</div>
+    <div style="margin-top:8px;color:#6a6a74">Compliance-readiness service, not a law firm. Deliverables reviewed by a licensed California attorney. Not legal advice. Penalty figures illustrative. Looking for the full multi-state platform? <a href="https://deadlinesf.net/">That's premium →</a></div>
+    <div style="margin-top:8px">Nicholle Simon, Founder · <a>info@deadlinesf.net</a></div>
+  </div>
+</footer>
+
+</div><!-- /.site -->
+
+<script>
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---- countdown ----
+  var target = new Date('2026-08-02T00:00:00-07:00').getTime();
+  function tick(){
+    var diff = Math.max(0, target - Date.now());
+    var d = Math.floor(diff/86400000); diff -= d*86400000;
+    var h = Math.floor(diff/3600000);  diff -= h*3600000;
+    var m = Math.floor(diff/60000);    diff -= m*60000;
+    var s = Math.floor(diff/1000);
+    var p = function(v){ return String(v).padStart(2,'0'); };
+    document.getElementById('d').textContent = p(d);
+    document.getElementById('h').textContent = p(h);
+    document.getElementById('m').textContent = p(m);
+    document.getElementById('s').textContent = p(s);
+  }
+  tick(); setInterval(tick, 1000);
+
+  // ---- red hover: wrap words so cursor lights text crimson ----
+  (function(){
+    if (reduce) return;
+    var roots = document.querySelectorAll('.ink');
+    var skip = /^(SCRIPT|STYLE|CANVAS|TEXTAREA|INPUT|BUTTON|SELECT|A|CODE|PRE)$/i;
+    function wrapText(node){
+      if (node.nodeType === 3) {
+        var t = node.nodeValue;
+        if (!t || !/\S/.test(t)) return;
+        var frag = document.createDocumentFragment();
+        t.split(/(\s+)/).forEach(function(part){
+          if (!part) return;
+          if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+          var sp = document.createElement('span');
+          sp.className = 'hw';
+          sp.textContent = part;
+          frag.appendChild(sp);
+        });
+        node.parentNode.replaceChild(frag, node);
+        return;
+      }
+      if (node.nodeType !== 1 || skip.test(node.tagName) || node.classList.contains('hw')) return;
+      if (node.classList && (node.classList.contains('btn') || node.classList.contains('go') || node.classList.contains('num'))) return;
+      var kids = Array.prototype.slice.call(node.childNodes);
+      kids.forEach(wrapText);
+    }
+    roots.forEach(function(r){ wrapText(r); });
+  })();
+
+  // ---- dark water field (full page black as water) ----
+  (function(){
+    var c = document.getElementById('water'); if(!c) return;
+    var ctx = c.getContext('2d'), W=0, H=0, dpr=window.devicePixelRatio||1, t=0;
+    var mx = 0.5, my = 0.4;
+    function resize(){
+      W = window.innerWidth; H = window.innerHeight;
+      c.width = W*dpr; c.height = H*dpr;
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+    window.addEventListener('pointermove', function(e){
+      mx = e.clientX / Math.max(1,W);
+      my = e.clientY / Math.max(1,H);
+    }, {passive:true});
+
+    var drops = [];
+    for (var i=0;i<48;i++){
+      drops.push({
+        x: Math.random(), y: Math.random(),
+        r: 40 + Math.random()*120,
+        s: 0.15 + Math.random()*0.45,
+        a: 0.03 + Math.random()*0.07,
+        ph: Math.random()*6.28
+      });
+    }
+
+    function frame(){
+      t += reduce ? 0 : 0.008;
+      // deep black water base
+      var g = ctx.createLinearGradient(0,0,0,H);
+      g.addColorStop(0, '#06060a');
+      g.addColorStop(0.45, '#08080e');
+      g.addColorStop(1, '#0a0608');
+      ctx.fillStyle = g;
+      ctx.fillRect(0,0,W,H);
+
+      // slow caustic bands
+      for (var band=0; band<5; band++){
+        var y = ((t*18 + band*H*0.22) % (H+80)) - 40;
+        var wave = Math.sin(t*1.2 + band)*30;
+        var cg = ctx.createLinearGradient(0, y-40, 0, y+40);
+        cg.addColorStop(0, 'rgba(255,43,43,0)');
+        cg.addColorStop(0.5, 'rgba(255,43,43,'+(0.025+band*0.008)+')');
+        cg.addColorStop(1, 'rgba(255,43,43,0)');
+        ctx.fillStyle = cg;
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        for (var x=0; x<=W; x+=24){
+          var yy = y + Math.sin(x*0.008 + t*2 + band)*12 + wave*0.3;
+          ctx.lineTo(x, yy);
+        }
+        ctx.lineTo(W, y+60); ctx.lineTo(0, y+60); ctx.closePath();
+        ctx.fill();
+      }
+
+      // soft red-black ripples following cursor
+      for (var d of drops){
+        var dx = (d.x + Math.sin(t*d.s + d.ph)*0.04);
+        var dy = (d.y + Math.cos(t*d.s*0.7 + d.ph)*0.03);
+        var cx = dx*W + (mx-0.5)*40;
+        var cy = dy*H + (my-0.5)*30;
+        var pulse = 0.6 + 0.4*Math.sin(t*2 + d.ph);
+        var rg = ctx.createRadialGradient(cx,cy,0,cx,cy,d.r*pulse);
+        rg.addColorStop(0, 'rgba(255,43,43,'+(d.a*1.4)+')');
+        rg.addColorStop(0.45, 'rgba(120,20,40,'+(d.a*0.5)+')');
+        rg.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.fillStyle = rg;
+        ctx.beginPath(); ctx.arc(cx,cy,d.r*pulse,0,Math.PI*2); ctx.fill();
+      }
+
+      // cursor glow — water lights near pointer
+      var cg2 = ctx.createRadialGradient(mx*W, my*H, 0, mx*W, my*H, 220);
+      cg2.addColorStop(0, 'rgba(255,43,43,0.09)');
+      cg2.addColorStop(0.4, 'rgba(255,43,43,0.03)');
+      cg2.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = cg2;
+      ctx.fillRect(0,0,W,H);
+
+      // fine surface grain
+      ctx.globalAlpha = 0.03;
+      for (var k=0;k<20;k++){
+        ctx.fillStyle = '#ff5a7a';
+        ctx.fillRect(Math.random()*W, Math.random()*H, 1.2, 1.2);
+      }
+      ctx.globalAlpha = 1;
+
+      if (!reduce) requestAnimationFrame(frame);
+    }
+    frame();
+  })();
+
+  // ---- jellyfish (hero) ----
+  (function(){
+    var c = document.getElementById('jelly'); if(!c) return;
+    var ctx = c.getContext('2d'), W=0, H=0, dpr=window.devicePixelRatio||1;
+    function resize(){ var r=c.getBoundingClientRect(); W=r.width; H=r.height; c.width=W*dpr; c.height=H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); }
+    resize(); window.addEventListener('resize', resize);
+
+    var jellies = [
+      {x:.72, y:.55, s:1.0,  hue:'#ff3b5c', spd:.10, sway:.06, ph:0.0, tent:9},
+      {x:.86, y:.78, s:0.62, hue:'#ff6a7f', spd:.14, sway:.09, ph:1.7, tent:7},
+      {x:.62, y:.32, s:0.45, hue:'#c9436a', spd:.08, sway:.05, ph:3.1, tent:6}
+    ];
+    var dots=[]; for(var i=0;i<34;i++){ dots.push({x:Math.random(),y:Math.random(),v:.0002+Math.random()*.0008,r:.5+Math.random()*1.4,a:.05+Math.random()*.14,tw:Math.random()*6.28}); }
+
+    var t=0;
+    function bell(j, cx, cy, size, pulse){
+      var rx = size*(1+0.06*pulse), ry = size*(0.82-0.10*pulse);
+      var g = ctx.createRadialGradient(cx,cy,0,cx,cy,size*2.4);
+      g.addColorStop(0, j.hue+'33'); g.addColorStop(1, j.hue+'00');
+      ctx.fillStyle=g; ctx.beginPath(); ctx.arc(cx,cy,size*2.4,0,Math.PI*2); ctx.fill();
+      ctx.beginPath();
+      ctx.moveTo(cx-rx, cy);
+      ctx.bezierCurveTo(cx-rx, cy-ry*1.7, cx+rx, cy-ry*1.7, cx+rx, cy);
+      var lobes=5;
+      for(var i=0;i<=lobes;i++){
+        var px = cx+rx - (2*rx)*(i/lobes);
+        var py = cy + (i%2===0? 0 : ry*0.16);
+        ctx.lineTo(px, py);
+      }
+      ctx.closePath();
+      var bg = ctx.createLinearGradient(cx,cy-ry*1.6,cx,cy+ry*.3);
+      bg.addColorStop(0, j.hue+'ee'); bg.addColorStop(1, j.hue+'55');
+      ctx.fillStyle=bg; ctx.shadowBlur=size*0.9; ctx.shadowColor=j.hue; ctx.fill(); ctx.shadowBlur=0;
+      ctx.globalAlpha=.5; ctx.fillStyle='#fff'; ctx.beginPath(); ctx.ellipse(cx,cy-ry*.55,rx*.28,ry*.4,0,0,Math.PI*2); ctx.fill(); ctx.globalAlpha=1;
+      ctx.strokeStyle=j.hue+'cc'; ctx.lineWidth=Math.max(1,size*0.03);
+      for(var k=0;k<j.tent;k++){
+        var ox = cx - rx*0.8 + (1.6*rx)*(k/(j.tent-1));
+        var len = size*(2.6 + (k%2)*0.8);
+        ctx.beginPath(); ctx.moveTo(ox, cy+ry*0.12);
+        for(var yy=0; yy<=len; yy+=8){
+          var wob = Math.sin(t*2 + yy*0.05 + k*0.7 + j.ph)* (size*0.12) * (yy/len);
+          ctx.lineTo(ox+wob, cy+ry*0.12+yy);
+        }
+        ctx.stroke();
+      }
+    }
+
+    function frame(){
+      t += reduce?0:0.012;
+      ctx.clearRect(0,0,W,H);
+      for(var p of dots){ if(!reduce){p.y-=p.v; if(p.y<0)p.y=1;} var tw=(Math.sin(t*2+p.tw)+1)/2; ctx.globalAlpha=p.a*(0.4+0.6*tw); ctx.fillStyle='#ff5a7a'; ctx.beginPath(); ctx.arc(p.x*W,p.y*H,p.r,0,Math.PI*2); ctx.fill(); }
+      ctx.globalAlpha=1;
+      for(var j of jellies){
+        var pulse=(Math.sin(t*1.4 + j.ph)+1)/2;
+        var cx=(j.x + Math.sin(t*j.sway + j.ph)*0.02)*W;
+        var driftY = ((j.y - (t*j.spd*0.02)%1)+1)%1;
+        var cy=driftY*H;
+        var size=j.s*Math.min(W,H)*0.11;
+        bell(j, cx, cy, size, pulse);
+      }
+      if(!reduce) requestAnimationFrame(frame);
+    }
+    frame();
+  })();
+</script>
+</body>
+<!-- cali-sync 2026-08-01T15:26:40.8290508-07:00 --></html>
