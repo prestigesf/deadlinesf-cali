@@ -19,3 +19,5 @@ The checkout key stays `ca_scan_795`. The live Stripe price still charges $795 u
 - § 3111 and Bus. & Prof. Code § 22757 et seq. link to official leginfo text
 - “3-line patch” / “one real gap, one real fix” copy now describes the 12-part § 3111 disclosure builder
 - Checkout key is still `ca_scan_795`; displayed price is still $749 (see decision list)
+
+2026-11-15 price list (her figures): AB 2013 (§ 3111) patch is free; paid tiers are Scan $3,500, Systems $50,000, and Everything $120,000. Checkout buttons were removed (no Stripe prices at these amounts); paid tiers use mailto:info@deadlinesf.net Request links. The $749 / ca_scan_795 scan offer and the $2,500 / $350/mo items were replaced, not left on the page.
