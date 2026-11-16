@@ -13,3 +13,11 @@ The checkout key stays `ca_scan_795`. The live Stripe price still charges $795 u
 2026-10-24 update (words and clock only, no visual changes):
 - SB 942 card: "Deadline · August 2, 2026" -> in effect since Aug 2, 2026; SB 1000 is no longer "moving in the Assembly" (signed Sept 30, 2026, in effect immediately, 1M-user carve-out deleted).
 - The countdown hit zero on Aug 2, 2026. After that date it now shows time since SB 942 took effect instead of 00:00:00:00.
+
+2026-11-15 trust-audit copy/link fixes (words and links only; prices and checkout SKUs unchanged):
+- info@deadlinesf.net is a mailto link
+- § 3111 and Bus. & Prof. Code § 22757 et seq. link to official leginfo text
+- “3-line patch” / “one real gap, one real fix” copy now describes the 12-part § 3111 disclosure builder
+- Checkout key is still `ca_scan_795`; displayed price is still $749 (see decision list)
+
+2026-11-15 price list (her figures): AB 2013 (§ 3111) patch is free; paid tiers are Scan $3,500, Systems $50,000, and Everything $120,000. Checkout buttons were removed (no Stripe prices at these amounts); paid tiers use mailto:info@deadlinesf.net Request links. The $749 / ca_scan_795 scan offer and the $2,500 / $350/mo items were replaced, not left on the page.
